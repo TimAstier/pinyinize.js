@@ -2,7 +2,7 @@ var _ = require('lodash');
 var endings = require('./lib/endings');
 var lettersToTonify = require('./lib/letters-to-tonify');
 var toneMap = require('./lib/tone-map');
-var toneNumbers = [1, 2, 3, 4];
+var toneNumbers = [0, 1, 2, 3, 4];
 
 module.exports = tonifyPhrase;
 
@@ -13,7 +13,6 @@ module.exports = tonifyPhrase;
 function tonifyPhrase(phrase) {
   var words = splitPhraseIntoWords(phrase);
   var tonifiedWords = words.map(tonifyWord);
-
   return tonifiedWords.join(' ');
 }
 
@@ -25,7 +24,7 @@ function tonifyWord(word) {
   var tone = getTone(word);
   var ending = getEnding(word);
 
-  if (!tone || !ending) {
+  if (tone === null || !ending) {
     return getTonelessFallback(word);
   }
 
@@ -37,7 +36,6 @@ function tonifyWord(word) {
 
   var tonifiedEnding = tonifyEnding(ending, tone);
   var tonifiedWord = word.replace(ending, tonifiedEnding);
-
   return stripToneNumber(tonifiedWord);
 }
 

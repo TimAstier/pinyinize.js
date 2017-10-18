@@ -201,4 +201,8 @@ describe('pinyinize', function() {
   it('should not convert non-pinyin words', function() {
     expect(pinyinize('foo1 dian2 3')).to.equal('foo1 dián 3');
   });
+
+  it('should convert ma0 ge0 shen0 ', function() {
+    expect(pinyinize('ma0 ge0 shen0')).to.equal('må ge̊ she̊n');
+  });
 });
