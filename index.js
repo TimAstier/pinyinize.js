@@ -11,9 +11,29 @@ module.exports = tonifyPhrase;
  * @return {string}
  */
 function tonifyPhrase(phrase) {
+  var spaceIndexes = [];
+  phrase.split('').forEach(function(char, i) {
+    if (char === ' ') {
+      spaceIndexes.push(i);
+    }
+  });
   var words = splitPhraseIntoWords(phrase);
   var tonifiedWords = words.map(tonifyWord);
-  return tonifiedWords.join(' ');
+  var arrayWithoutSpaces = tonifiedWords.join('').split('');
+  var arrayWithSpaces = arrayWithoutSpaces;
+  spaceIndexes.forEach(function(spaceIndex, i) {
+    arrayWithSpaces.splice(spaceIndex - (i + 1), 0, ' ');
+  });
+  var result = arrayWithSpaces.join('');
+  // Special case due to 'ring e' and 'ring i' being split into two characters
+  result = result.replace(/[\*$€]/g, function(m) {
+    return {
+        '*': 'e̊',
+        '$': 'i̊',
+        '€': 'o̊'
+    }[m];
+  });
+  return result;
 }
 
 /**
@@ -98,7 +118,8 @@ function stripToneNumber(word) {
  * @return {array}
  */
 function splitPhraseIntoWords(phrase) {
-  return phrase.split(' ');
+  var spacedPhrase = phrase.replace(/([0-9](?! ))/g, '$1 ').trim();
+  return spacedPhrase.split(' ');
 }
 
 /**

@@ -198,11 +198,11 @@ describe('pinyinize', function() {
     expect(pinyinize('nü1 nü2 nü3 nü4 nü')).to.equal('nǖ nǘ nǚ nǜ nü');
   });
 
-  it('should not convert non-pinyin words', function() {
-    expect(pinyinize('foo1 dian2 3')).to.equal('foo1 dián 3');
+  it('should convert ma0 ge0 shen0 si0 bo0 lu0 lv0', function() {
+    expect(pinyinize('ma0 ge0 shen0 si0 bo0 xu0 lv0')).to.equal('må ge̊ she̊n si̊ bo̊ xů lů');
   });
 
-  it('should convert ma0 ge0 shen0 ', function() {
-    expect(pinyinize('ma0 ge0 shen0')).to.equal('må ge̊ she̊n');
+  it('should convert even without spaces between sounds ', function() {
+    expect(pinyinize('zhong1guo2ren2')).to.equal('zhōngguórén');
   });
 });

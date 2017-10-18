@@ -4,7 +4,7 @@
   "description": "A tool that converts Hanyu pinyin tone numbers to tone marks.",
   "main": "index.js",
   "scripts": {
-    "test": "npm install && mocha",
+    "test": "mocha",
     "posttest": "npm run lint",
     "lint": "eslint index.js lib test"
   },
